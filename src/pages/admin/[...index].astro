@@ -1,0 +1,17 @@
+---
+// src/pages/admin/[...index].astro
+import { Studio } from 'sanity';
+import sanityConfig from '../../../sanity.config'; // Adjust path if your sanity.config is elsewhere
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inkbot Design | Studio</title>
+  </head>
+  <body style="margin: 0;">
+    <Studio config={sanityConfig} client:only="react" />
+  </body>
+</html>
