@@ -1,0 +1,58 @@
+---
+// src/pages/services/[service].astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// This tells Astro which pages to pre-build for this dynamic route
+export function getStaticPaths() {
+  return [
+    { 
+		params: { service: 'brand-strategy' }, 
+		props: { 
+			name: 'Brand Strategy', 
+			desc: 'Data-driven brand strategy and positioning services.',
+			content: 'A strong brand starts with a solid foundation. We analyze your market, competitors, and target audience to uncover your unique positioning.' 
+		} 
+	},
+    { 
+		params: { service: 'logo-design' }, 
+		props: { 
+			name: 'Identity & Logo Design', 
+			desc: 'Custom logo design and visual identity systems.',
+			content: 'Your visual identity is your silent ambassador. We create timeless, versatile logos and design systems that ensure brand consistency.' 
+		} 
+	},
+    { 
+		params: { service: 'web-design' }, 
+		props: { 
+			name: 'Web Design & Development', 
+			desc: 'Custom, high-performance website design and development.',
+			content: 'We build websites that look beautiful and perform brilliantly. Focus on Core Web Vitals, semantic SEO, and user experience.' 
+		} 
+	},
+  ];
+}
+
+// We extract the data passed from getStaticPaths
+const { service } = Astro.params;
+const { name, desc, content } = Astro.props;
+---
+
+<BaseLayout title={`${name} Services`} description={desc}>
+	<section class="page-header">
+		<div class="container">
+			<h1>{name}</h1>
+		</div>
+	</section>
+
+	<section class="service-details">
+		<div class="container">
+			<p class="lead">{desc}</p>
+			<p>{content}</p>
+			
+			<div class="cta-banner">
+				<h3>Ready to elevate your {name.toLowerCase()}?</h3>
+				<a href="/request-a-quote" class="btn btn-primary">Let's Talk</a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

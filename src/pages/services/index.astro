@@ -1,0 +1,35 @@
+---
+// src/pages/services/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+	title="Branding & Design Services" 
+	description="Explore our core services: Brand Strategy, Identity Design, and High-Performance Web Development."
+>
+	<section class="page-header">
+		<div class="container">
+			<h1>Our Services</h1>
+			<p class="lead">Comprehensive branding and digital solutions to elevate your market position.</p>
+		</div>
+	</section>
+
+	<section class="services-grid">
+		<div class="container">
+			<div class="service-card">
+				<h2><a href="/services/brand-strategy">Brand Strategy</a></h2>
+				<p>Positioning, messaging, and brand architecture designed to give you a competitive edge.</p>
+			</div>
+			
+			<div class="service-card">
+				<h2><a href="/services/logo-design">Identity & Logo Design</a></h2>
+				<p>Memorable, versatile visual identities that capture the essence of your business.</p>
+			</div>
+			
+			<div class="service-card">
+				<h2><a href="/services/web-design">Web Design & Development</a></h2>
+				<p>Blisteringly fast, SEO-optimized websites engineered to convert visitors into leads.</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

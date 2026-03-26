@@ -1,0 +1,65 @@
+---
+// src/layouts/BaseLayout.astro
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description: string;
+	image?: string;
+}
+
+// We set default fallbacks here, but you'll pass specific data from each page
+const { 
+	title, 
+	description = "Award-winning branding and web design agency based in Belfast.", 
+	image = '/favicon.svg' 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+
+		<title>{title} | Inkbot Design</title>
+		<meta name="title" content={`${title} | Inkbot Design`} />
+		<meta name="description" content={description} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={`${title} | Inkbot Design`} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.url)} />
+
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={`${title} | Inkbot Design`} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+	</head>
+	<body>
+		<header class="site-header">
+			<div class="container">
+				<a href="/" class="logo">Inkbot Design</a>
+				<nav class="main-nav">
+					<a href="/">Home</a>
+					<a href="/about">About</a>
+					<a href="/services">Services</a>
+					<a href="/request-a-quote" class="nav-cta">Request a Quote</a>
+				</nav>
+			</div>
+		</header>
+
+		<main id="main-content">
+			<slot /> </main>
+
+		<footer class="site-footer">
+			<div class="container">
+				<p>&copy; {new Date().getFullYear()} Inkbot Design. Belfast, UK. All rights reserved.</p>
+			</div>
+		</footer>
+	</body>
+</html>
