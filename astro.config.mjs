@@ -1,17 +1,19 @@
-// @ts-check
-import { defineConfig } from "astro/config";
-import mdx from "@astrojs/mdx";
-import sitemap from "@astrojs/sitemap";
+import { defineConfig } from 'astro/config';
+import cloudflare from '@astrojs/cloudflare';
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+import sanity from '@sanity/astro';
 
-import cloudflare from "@astrojs/cloudflare";
-
-// https://astro.build/config
 export default defineConfig({
-	site: "https://example.com",
-	integrations: [mdx(), sitemap()],
-	adapter: cloudflare({
-		platformProxy: {
-			enabled: true,
-		},
-	}),
+  adapter: cloudflare(),
+  integrations: [
+    mdx(),
+    sitemap(),
+    sanity({
+      projectId: 'vsozkoub',
+      dataset: 'production',
+      useCdn: false, // Better for local development so you see changes instantly
+      apiVersion: '2024-03-26',
+    }),
+  ],
 });

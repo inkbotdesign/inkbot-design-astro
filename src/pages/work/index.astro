@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sanityClient } from 'sanity:client';
+
+// Fetch all projects from Sanity
+const projects = await sanityClient.fetch(`*[_type == "project"] | order(_createdAt desc){
+  title,
+  "slug": slug.current,
+  services,
+  "imageUrl": coverImage.asset->url
+}`);
+---
+
+<BaseLayout title="Our Work | Inkbot Design">
+	<main class="container shadow-sm p-5 mb-5 bg-white rounded">
+		<h1 class="display-4 mb-4">Case Studies</h1>
+		<p class="lead mb-5">Strategic branding and design solutions for global clients.</p>
+
+		<div class="row g-4">
+			{projects.map((project: any) => (
+				<div class="col-md-6 col-lg-4">
+					<div class="card h-100 border-0 shadow-sm">
+						{project.imageUrl && (
+							<img src={project.imageUrl} class="card-img-top" alt={project.title} />
+						)}
+						<div class="card-body">
+							<h3 class="h5 card-title">
+								<a href={`/work/${project.slug}`} class="text-decoration-none text-dark stretched-link">
+									{project.title}
+								</a>
+							</h3>
+							<div class="mt-2">
+								{project.services?.map((service: string) => (
+									<span class="badge bg-light text-dark border me-1">{service}</span>
+								))}
+							</div>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+	</main>
+</BaseLayout>
