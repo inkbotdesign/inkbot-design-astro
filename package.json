@@ -16,19 +16,19 @@
         "preview": "astro build && wrangler dev"
     },
     "dependencies": {
-        "@astrojs/cloudflare": "12.6.12",
-        "@astrojs/mdx": "4.3.13",
-        "@astrojs/rss": "4.0.14",
-        "@astrojs/sitemap": "3.6.1",
+        "@astrojs/cloudflare": "^13.1.4",
+        "@astrojs/mdx": "^5.0.3",
+        "@astrojs/rss": "^4.0.18",
+        "@astrojs/sitemap": "^3.7.2",
         "@sanity/astro": "^3.3.1",
         "@sanity/client": "^7.20.0",
         "@sanity/image-url": "^2.0.3",
-        "astro": "5.16.9",
+        "astro": "^6.1.0",
         "astro-portabletext": "^0.13.0",
         "typescript": "5.9.3"
     },
     "devDependencies": {
-        "wrangler": "4.56.0"
+        "wrangler": "^4.77.0"
     },
     "overrides": {
         "esbuild": "0.27.4"
