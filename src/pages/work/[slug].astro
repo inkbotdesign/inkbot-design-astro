@@ -1,10 +1,24 @@
 ---
 import { sanityClient } from "sanity:client";
 import { PortableText } from "astro-portabletext";
+import imageUrlBuilder from "@sanity/image-url";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+// 1. Setup the image helper
+const builder = imageUrlBuilder(sanityClient);
+function urlFor(source: any) {
+  return builder.image(source);
+}
+
 export async function getStaticPaths() {
-  const projects = await sanityClient.fetch(`*[_type == "project" && defined(slug.current)]`);
+  // Fetch everything we need in one go
+  const projects = await sanityClient.fetch(`*[_type == "project" && defined(slug.current)]{
+    title,
+    slug,
+    services,
+    mainImage,
+    body
+  }`);
 
   return projects.map((project) => ({
     params: { slug: project.slug.current },
@@ -19,25 +33,30 @@ const { project } = Astro.props;
   <main class="container py-5">
     <div class="row justify-content-center">
       <div class="col-lg-10">
-        <h1 class="display-3 fw-bold mb-4">{project.title}</h1>
+        
+        {project.mainImage && (
+          <div class="mb-5">
+            <img 
+              src={urlFor(project.mainImage).width(1200).height(600).url()} 
+              alt={project.title}
+              class="img-fluid rounded-4 shadow-lg"
+              style="object-fit: cover; width: 100%; max-height: 500px;"
+            />
+          </div>
+        )}
+
+        <h1 class="display-3 fw-bold mb-3">{project.title}</h1>
         
         <div class="mb-5">
-           {project.services?.map((service) => (
-             <span class="badge bg-dark me-2 p-2 px-3">{service}</span>
+           {project.services?.map((service: string) => (
+             <span class="badge bg-primary me-2 p-2 px-3">{service}</span>
            ))}
         </div>
 
-        <div class="case-study-content fs-5 leading-relaxed">
+        <div class="case-study-content fs-5">
           <PortableText value={project.body} />
         </div>
       </div>
     </div>
   </main>
 </BaseLayout>
-
-<style is:global>
-  /* This ensures Sanity's content looks clean */
-  .case-study-content p { margin-bottom: 1.5rem; }
-  .case-study-content h2 { margin-top: 2.5rem; font-weight: 700; }
-  .case-study-content img { border-radius: 8px; max-width: 100%; height: auto; }
-</style>
