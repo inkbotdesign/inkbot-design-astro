@@ -13,16 +13,16 @@ export default defineConfig({
   output: 'server',
 
   adapter: cloudflare({
-    // CRITICAL FOR ASTRO 6: 
-    // This resolves the "Cloudflare does not support sharp" warning from your logs.
-    // 'compile' optimizes images at build time so they are instant on the live site.
+    // Keeps your branding images sharp and fast
     imageService: 'compile',
     
-    // This allows your local 'npm run dev' to use real Cloudflare 
-    // features like KV and Environment variables.
+    // Connects your local VS Code to Cloudflare features
     platformProxy: {
       enabled: true,
     },
+
+    // FIX: Disables the automatic Session search that's crashing your build
+    runtime: { mode: 'off' } 
   }),
 
   integrations: [
